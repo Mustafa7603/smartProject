@@ -1,98 +1,62 @@
-// const { Then, When } = require('@badeball/cypress-cucumber-preprocessor')
-// const TGHtmlElementsPage = require('../../../pages/TGHtmlElementsPage')
+const { Then, When } = require('@badeball/cypress-cucumber-preprocessor')
+const TGHtmlElementsPage = require('../../../pages/TGHtmlElementsPage')
 
-// const tgHtmlElementsPage = new TGHtmlElementsPage()
+const tgHtmlElementsPage = new TGHtmlElementsPage()
 
-// Then(/^user should see the "([^"]*)" page heading$/, (args1) => {
-//   console.log(args1)
-//   return true
-// })
+When(/^user clicks on the "([^"]*)" button$/, (label) => {
+  tgHtmlElementsPage.clickButtonByText(label)
+})
 
-// When(/^user clicks on the "([^"]*)" button$/, (label) => {
-//   tgHtmlElementsPage.clickButtonByText(label)
-// })
+Then(/^the text under it should be "([^"]*)"$/, (message) => {
+  tgHtmlElementsPage.getButtonMessage().should('have.text', message)
+})
 
-// Then(/^the text under it should be "([^"]*)"$/, (message) => {
-//   tgHtmlElementsPage.getButtonMessage().should('have.text', message)
+When(/^user selects "([^"]*)" from the first dropdown menu$/, (option) => {
+  tgHtmlElementsPage.getFirstDropdown().select(option)
+})
 
-//   cy.log('asdasdsa').get().click().each().find().log().find().find().find().find()
-// })
+When(/^user selects "([^"]*)" from the second dropdown menu$/, (option) => {
+  tgHtmlElementsPage.getSecondDropdown().select(option)
+})
 
-// When(/^user selects "([^"]*)" from the first dropdown menu$/, (company) => {
-//   cy.get('#company_dropdown1').select(company)
-// })
+Then(/^"([^"]*)" should be the selected option in the first dropdown$/, (option) => {
+  tgHtmlElementsPage.getFirstDropdown().should('have.value', option)
+})
 
-// Then(/^user selects "([^"]*)" from the second dropdown menu$/, (company) => {
-//   cy.get('#company_dropdown2').select(company)
-// })
+Then(/^"([^"]*)" should be the selected option in the second dropdown$/, (option) => {
+  tgHtmlElementsPage.getSecondDropdown().should('have.value', option)
+})
 
-// Then(/^"([^"]*)" should be the selected option in the first dropdown$/, (company) => {
-//   cy.get('#company_dropdown1').should('have.value', company)
-// })
+When(/^user enters "([^"]*)" to input field "([^"]*)"$/, (input, index) => {
+  tgHtmlElementsPage.getInputboxByIndex(index).type(input)
+})
 
-// Then(/^"([^"]*)" should be the selected option in the second dropdown$/, (company) => {
-//   cy.get('#company_dropdown2').should('have.value', company)
-// })
+Then(/^the text input "([^"]*)" should contain "([^"]*)"$/, (index, expectedValue) => {
+  tgHtmlElementsPage.getInputboxByIndex(index).should('have.value', expectedValue)
+})
 
-// When(/^user enters "([^"]*)" into the first text input field$/, (text) => {
-//   tgHtmlElementsPage.getInputfield1().type(text)
-// })
+When(/^user selects the "([^"]*)" checkbox$/, (label) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label).check()
+})
 
-// Then(/^user enters "([^"]*)" into the second text input field$/, (text) => {
-//   tgHtmlElementsPage.getInputfield2().type(text)
-// })
+Then(/^user deselects the "([^"]*)" checkbox$/, (label) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label).uncheck()
+})
 
-// Then(/^the first text input field should contain "([^"]*)"$/, (text) => {
-//   tgHtmlElementsPage.getInputfield1().should('have.value', text)
-// })
+Then(/^the "([^"]*)" checkbox should not be checked$/, (label) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label).should('not.be.checked')
+})
 
-// Then(/^the second text input field should contain "([^"]*)"$/, (text) => {
-//   tgHtmlElementsPage.getInputfield2().should('have.value', text)
-// })
+When(/^user selects the "([^"]*)" and "([^"]*)" checkboxes$/, (label1, label2) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label1).check()
+  tgHtmlElementsPage.getCheckboxByLabel(label2).check()
+})
 
-// When(/^user selects the "([^"]*)" checkbox$/, (args1) => {
-//   console.log(args1)
-//   return true
-// })
+Then(/^both "([^"]*)" and "([^"]*)" checkboxes should be checked$/, (label1, label2) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label1).should('be.checked')
+  tgHtmlElementsPage.getCheckboxByLabel(label2).should('be.checked')
+})
 
-// When(/^user deselects the "([^"]*)" checkbox$/, (args1) => {
-//   console.log(args1)
-//   return true
-// })
-
-// Then(/^the "([^"]*)" checkbox should not be checked$/, (args1) => {
-//   console.log(args1)
-//   return true
-// })
-
-// When(/^user selects the "([^"]*)" and "([^"]*)" checkboxes$/, (args1, args2) => {
-//   console.log(args1, args2)
-//   return true
-// })
-
-// Then(/^both "([^"]*)" and "([^"]*)" checkboxes should be checked$/, (args1, args2) => {
-//   console.log(args1, args2)
-//   return true
-// })
-
-// Then(/^the "([^"]*)" checkbox remains unchecked$/, (args1) => {
-//   console.log(args1)
-//   return true
-// })
-
-// When(/^user enter username as "([^"]*)" and password as "([^"]*)"$/, (username, password) => {
-//   tgHtmlElementsPage.usernameinput().type(username)
-//   tgHtmlElementsPage.passwordinput().type(password)
-// })
-
-// When(/^user clicks Login button$/, () => {
-//   tgHtmlElementsPage.loginbuttonOnloginpage().click()
-// })
-
-// Then(/^user should see a "([^"]*)"$/, (text) => {
-//   if (text === 'Invalid Username entered!') {
-//     tgHtmlElementsPage.errorMessage().should('have.text', text)
-//   } else if (text === 'You are logged in') {
-//     tgHtmlElementsPage.getSuccessMessage().should('have.text', text)
-//   }
-// })
+Then(/^the "([^"]*)" checkbox remains unchecked$/, (label) => {
+  tgHtmlElementsPage.getCheckboxByLabel(label).should('not.be.checked')
+})

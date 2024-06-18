@@ -2,19 +2,6 @@ const TGBasePage = require('./TGBasePage')
 
 class TGHtmlElementsPage extends TGBasePage {
   /* Locators */
-
-  getAppleCheckbox() {
-    return cy.get('#checkbox_1')
-  }
-
-  getMicrosoftCheckbox() {
-    return cy.get('#checkbox_2')
-  }
-
-  getTeslaCheckbox() {
-    return cy.get('checkbox_3')
-  }
-
   getButtons() {
     return cy.get('#register_button, #signin_button')
   }
@@ -23,39 +10,54 @@ class TGHtmlElementsPage extends TGBasePage {
     return cy.get('.is-block')
   }
 
-  getInputfield1() {
-    return cy.get('#text_input1')
-  }
-  getInputfield2() {
-    return cy.get('#text_input2')
-  }
-
   getButtonByText(label) {
     return this.getButtons().contains(label)
   }
 
-  usernameinput() {
-    return cy.get('#username')
+  getFirstDropdown() {
+    return cy.get('#company_dropdown1')
   }
 
-  passwordinput() {
-    return cy.get('#password')
+  getSecondDropdown() {
+    return cy.get('#company_dropdown2')
   }
 
-  loginbuttonOnloginpage() {
-    return cy.get('#login_btn')
+  getTextInputOne() {
+    return cy.get('#text_input1')
   }
 
-  errorMessage() {
-    return cy.get('#error_message')
+  getTextInputTwo() {
+    return cy.get('#text_input2')
   }
+
+  getInputBoxes() {
+    return cy.get('#text_input1, #text_input2')
+  }
+
+  getInputboxByIndex(index) {
+    const realIndex = Number(index) - 1
+
+    return this.getInputBoxes().eq(realIndex)
+  }
+
+  getCheckboxByLabel(label) {
+    const checkboxes = {
+      Apple: '#checkbox_1',
+      Microsoft: '#checkbox_2',
+      Tesla: '#checkbox_3',
+    }
+
+    if (!label) {
+      throw new Error(`${label} not found`)
+    }
+
+    return cy.get(checkboxes[label])
+  }
+
   /* Methods */
 
   clickButtonByText(label) {
     this.getButtonByText(label).click()
-  }
-  getSuccessMessage() {
-    return cy.get('#success_lgn')
   }
 }
 

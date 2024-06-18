@@ -1,6 +1,6 @@
 Feature: SmartBear Validation
 
-  Background:
+  Background: 
     Given user is on "http://secure.smartbearsoftware.com/samples/testcomplete12/WebOrders/login.aspx"
 
   Scenario: Validate invalid login attempt
@@ -9,23 +9,24 @@ Feature: SmartBear Validation
     And user clicks on "Login" button
     Then user should see "Invalid Login or Password." message
 
+
   Scenario: Validate valid login attempt
     When user enters username as "Tester"
     And user enters password as "test"
     And user clicks on "Login" button
     Then user should be routed to "http://secure.smartbearsoftware.com/samples/testcomplete12/weborders/"
 
-  Scenario Outline: Validate Web Orders menu items
+
+  Scenario: Validate Web Orders menu items
     When user enters username as "Tester"
     And user enters password as "test"
     And user clicks on "Login" button
     Then user should be routed to "http://secure.smartbearsoftware.com/samples/testcomplete12/weborders/"
-    And validate below menu '<items>' are displayed
-    Examples:
-      | items            |
-      | View all orders  |
-      | View all product |
-      | Order            |
+    And validate below menu items are displayed
+      | View all orders   |
+      | View all products |
+      | Order             |
+
 
   Scenario: Validate "Check All" and "Uncheck All" links
     When user enters username as "Tester"
@@ -37,6 +38,7 @@ Feature: SmartBear Validation
     When user clicks on "Uncheck All" button
     Then all rows should be unchecked
 
+
   Scenario: Validate "Delete Selected" button
     When user enters username as "Tester"
     And user enters password as "test"
@@ -47,19 +49,16 @@ Feature: SmartBear Validation
     Then validate all orders are deleted from the List of All Orders
     And validate user sees "List of orders is empty. In order to add new order use this link." message
 
-  Scenario Outline: Validate adding new order
+
+  Scenario: Validate adding new order
     When user enters username as "Tester"
     And user enters password as "test"
     And user clicks on "Login" button
     Then user should be routed to "http://secure.smartbearsoftware.com/samples/testcomplete12/weborders/"
     When user clicks on "Order" menu item
-    And user enters all product information '<product>','<quantity>'
-    And user enters all address information '<name>', '<street>', '<city>', '<zip>'
-    And user enters all payment information '<card>', '<cardnr>', '<expiredate>'
+    And user enters all product information
+    And user enters all address information
+    And user enters all payment information
     And user clicks on "Process" button
     And user clicks on "View all orders" menu item
-    Then validate all information entered displayed correct with the order '<name>', '<product>', '<quantity>', '<street>', '<city>', '<zip>', '<card>', '<cardnr>', '<expiredate>'
-
-    Examples:
-      | product | quantity | name    | street          | city    | zip   | card | cardnr          | expiredate |
-      | MyMoney | 2        | Mustafa | 1234 river Road | chicago | 60616 | Visa | 123456789123456 | 01/25      |
+    Then validate all information entered displayed correct with the order
